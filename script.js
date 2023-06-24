@@ -9,23 +9,23 @@ function loadWeather() {
     <img src="image/loading-icon.gif" alt="loading.gif"  width="250" height="250">
     </div>`;
 
-  const server =
-    "http://api.openweathermap.org/data/2.5/weather?q=KYIV&units=metric&APPID=d7f1c188f618a6d306fef4f39faffce5";
-  xhr.open("GET", server, true);
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      const responseResult = JSON.parse(xhr.responseText);
-      getWeather(responseResult);
-    } else {
-      weatherBlock.innerHTML = xhr.responseText;
-    }
-  };
+  fetch(
+    "http://api.openweathermap.org/data/2.5/weather?q=Uzhgorod&units=metric&APPID=d7f1c188f618a6d306fef4f39faffce5"
+  )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Response was not ok.");
+      }
+    })
 
-  xhr.onerror = function () {
-    weatherBlock.innerHTML = "<p>ERROR. Try again.</p>";
-  };
-
-  xhr.send();
+    .then((weatherData) => {
+      getWeather(weatherData);
+    })
+    .catch((error) => {
+      weatherBlock.innerHTML = "<p>ERROR. Try again.</p>";
+    });
 }
 
 function getWeather(weatherData) {
@@ -37,20 +37,29 @@ function getWeather(weatherData) {
   const speed = Math.round(weatherData.wind.speed);
   const deg = Math.round(weatherData.wind.deg);
 
+  const currentDateTime = new Date();
+  const date = currentDateTime.toLocaleDateString();
+  const time = currentDateTime.toLocaleTimeString();
+
   const template = `<div class="weather-header">
     <div class="weather-main">
         <div class="weather-city">${location}</div>
         <div class="weather-temp">${temp}°C</div>
         <div class="weather-icon">
-            <img src="http://openweathermap.org/img/w/10d.png" alt="Icon Weather">
+            <img src="http://openweathermap.org/img/w/10d.png" alt="Icon 10d">
         </div>
         <div class="weather-description">description: ${description}</div>
         <div class="weather-pressure">pressure: ${pressure} мм</div>
         <div class="weather-humidity">humidity: ${humidity} %</div>
         <div class="weather-speed">wind speed: ${speed} м/с</div>
          <div class="weather-deg">wind direction: ${deg}°</div>
+        
     </div>
-</div>`;
+</div>
+ <div class="weather-datetime">
+        <div class="weather-date">Date: ${date}</div>
+        <div class="weather-time">Time: ${time}</div>
+    </div>`;
 
   weatherBlock.innerHTML = template;
 }
