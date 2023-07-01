@@ -1,0 +1,76 @@
+body {
+  background: url("image/icons-weather-preview.jpg");
+  background-size: cover;
+  font-family: Andale Mono, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.weather {
+  padding: 80px;
+  background-color: #e3ebf6;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px #008080;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.weather-main {
+  text-align: center;
+}
+
+.weather-city {
+  color: #000680;
+  font-family: Comic Sans MS, Comic Sans;
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.weather-temp {
+  color: #f1560e;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-icon img {
+  width: 100px;
+  height: 100px;
+}
+
+.weather-pressure::before,
+.weather-humidity::before,
+.weather-description::before,
+.weather-speed::before,
+.weather-deg::before {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.weather-pressure,
+.weather-humidity,
+.weather-description,
+.weather-speed,
+.weather-deg {
+  font-size: 26px;
+  font-weight: 700;
+  color: #036666;
+}
+
+.weather-datetime {
+  color: #f1560e;
+  margin-top: 60px;
+}
